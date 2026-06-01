@@ -41,9 +41,11 @@ deals/
 **目标**：在 10 分钟内让用户掌握这个项目"是什么、值不值得继续花时间、关键风险在哪"。
 
 **步骤**：
-1. 用 Read 工具读取 BP（PDF 直接 Read 即可，支持图文）。若 PDF 超过 10 页，按页分段读完整。
+1. 用 Read 工具读取 BP（PDF 直接 Read 即可，支持图文）。若 PDF 超过 10 页，按页分段读完整。（环境缺 `pdftoppm` 时先 `apt-get install -y poppler-utils`；图片型 PDF 用 `pdftoppm -png` 渲染成图再 Read。）
 2. 把原始文件复制/记录到 `deals/<公司>/source/`。
-3. 按 `references/analysis-template.md` 的框架产出结构化分析，写入 `01-分析.md`。
+3. 产出 `deals/<公司>/source/原文-提取.md`：把 BP（含图片页）里的关键文字逐页落成可搜索文本——这是知识库"搜得到原话"的基础。
+4. 按 `references/analysis-template.md` 的框架产出结构化分析，写入 `01-分析.md`，**顶部加 YAML frontmatter**（公司/赛道/轮次/融资额/估值/结论/评级/标签/更新等，字段参照已有项目），供索引看板与检索使用。
+5. 刷新知识库：`python3 tools/kb.py all`（重建检索索引 + 生成 `INDEX.md` 总看板）。
 
 **关键原则**：
 - **区分"BP 声称"与"已验证"**。BP 里的数字默认是创始人口径，标注 `（BP口径，待验证）`。
